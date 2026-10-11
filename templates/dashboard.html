@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · LaundryCare{% endblock %}
+{% block page_heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="welcome-row"><div><h2 class="section-title">Good to see you, {{ current_user.username }} <span>✦</span></h2><p class="muted">Here’s what’s happening at your laundry today.</p></div><a href="{{ url_for('orders') }}#new-order" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>New order</a></div>
+<div class="row g-3 mb-4">
+  <div class="col-12 col-sm-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>Total customers</span><span class="stat-icon icon-blue"><i class="bi bi-people"></i></span></div><div class="stat-value">{{ total_customers }}</div><div class="stat-foot">Registered customers</div></div></div>
+  <div class="col-12 col-sm-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>Total orders</span><span class="stat-icon icon-purple"><i class="bi bi-bag-check"></i></span></div><div class="stat-value">{{ total_orders }}</div><div class="stat-foot">All recorded orders</div></div></div>
+  <div class="col-12 col-sm-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>In progress</span><span class="stat-icon icon-orange"><i class="bi bi-arrow-repeat"></i></span></div><div class="stat-value">{{ pending_orders }}</div><div class="stat-foot">Pending or processing</div></div></div>
+  <div class="col-12 col-sm-6 col-xl-3"><div class="stat-card"><div class="stat-top"><span>Payments received</span><span class="stat-icon icon-green"><i class="bi bi-currency-rupee"></i></span></div><div class="stat-value">₹{{ "%.2f"|format(revenue) }}</div><div class="stat-foot">Completed payments</div></div></div>
+</div>
+<div class="row g-3">
+  <div class="col-12 col-xl-8"><div class="panel-card h-100"><div class="panel-header"><div><h3>Recent orders</h3><p>Latest activity from your shop</p></div><a href="{{ url_for('orders') }}" class="text-link">View all <i class="bi bi-arrow-up-right"></i></a></div>
+  <div class="table-responsive"><table class="table align-middle data-table mb-0"><thead><tr><th>Order</th><th>Customer</th><th>Service</th><th>Amount</th><th>Status</th><th></th></tr></thead><tbody>
+  {% for order in recent_orders %}<tr><td><a class="order-number" href="{{ url_for('order_detail', order_id=order.order_id) }}">#LC{{ "%04d"|format(order.order_id) }}</a><small class="d-block text-secondary">{{ order.order_date.strftime('%d %b, %I:%M %p') }}</small></td><td>{{ order.customer.name }}</td><td>{{ order.service.service_name }}<small class="d-block text-secondary">{{ order.quantity }} item(s)</small></td><td class="fw-semibold">₹{{ "%.2f"|format(order.total_amount) }}</td><td><span class="status status-{{ order.order_status|lower }}">{{ order.order_status }}</span></td><td><a href="{{ url_for('order_detail', order_id=order.order_id) }}" class="icon-link"><i class="bi bi-chevron-right"></i></a></td></tr>
+  {% else %}<tr><td colspan="6" class="empty-state"><i class="bi bi-bag-x"></i><strong>No orders yet</strong><span>Create your first laundry order to get started.</span><a href="{{ url_for('orders') }}#new-order" class="btn btn-sm btn-primary mt-2">Create order</a></td></tr>{% endfor %}
+  </tbody></table></div></div></div>
+  <div class="col-12 col-xl-4"><div class="panel-card h-100"><div class="panel-header"><div><h3>Quick actions</h3><p>Common tasks at a glance</p></div></div><div class="quick-actions">
+  <a href="{{ url_for('customers') }}" class="quick-action"><span class="quick-icon icon-blue"><i class="bi bi-person-plus"></i></span><span><strong>Add customer</strong><small>Register a new customer</small></span><i class="bi bi-chevron-right ms-auto"></i></a>
+  <a href="{{ url_for('services') }}" class="quick-action"><span class="quick-icon icon-purple"><i class="bi bi-tags"></i></span><span><strong>Manage services</strong><small>Update laundry pricing</small></span><i class="bi bi-chevron-right ms-auto"></i></a>
+  <a href="{{ url_for('orders') }}#new-order" class="quick-action"><span class="quick-icon icon-orange"><i class="bi bi-plus-square"></i></span><span><strong>Create an order</strong><small>Start a new laundry job</small></span><i class="bi bi-chevron-right ms-auto"></i></a>
+  <a href="{{ url_for('payments') }}" class="quick-action"><span class="quick-icon icon-green"><i class="bi bi-receipt"></i></span><span><strong>Payment history</strong><small>Review received payments</small></span><i class="bi bi-chevron-right ms-auto"></i></a>
+  </div><div class="ready-callout"><span class="ready-bubble"><i class="bi bi-check2-circle"></i></span><div><strong>{{ ready_orders }} orders ready</strong><p class="mb-0">Ready for customer pickup or delivery.</p></div></div></div></div>
+</div>
+{% endblock %}

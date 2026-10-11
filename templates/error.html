@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} · LaundryCare{% endblock %}
+{% block page_heading %}Something went wrong{% endblock %}
+{% block content %}
+<div class="panel-card text-center py-5"><div class="error-code">{{ code }}</div><h2 class="section-title">{{ message }}</h2><a class="btn btn-primary mt-3" href="{{ url_for('dashboard') }}"><i class="bi bi-arrow-left me-2"></i>Back to dashboard</a></div>
+{% endblock %}

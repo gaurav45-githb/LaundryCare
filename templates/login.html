@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Sign in · LaundryCare{% endblock %}
+{% block auth_content %}
+<div class="login-layout">
+  <div class="login-visual">
+    <div class="login-brand"><span class="brand-icon"><i class="bi bi-droplet-fill"></i></span> LaundryCare</div>
+    <div class="visual-copy"><span class="pill-light">SMARTER LAUNDRY OPERATIONS</span><h1>Fresh clothes.<br>Clear workflow.</h1><p>Manage every order, customer and payment from one clean workspace.</p></div>
+    <div class="visual-foot"><i class="bi bi-shield-check me-2"></i>Simple, organized, reliable.</div>
+  </div>
+  <div class="login-panel">
+    <div class="login-form-wrap">
+      <div class="mobile-brand"><span class="brand-icon"><i class="bi bi-droplet-fill"></i></span> LaundryCare</div>
+      <span class="eyebrow">WELCOME BACK</span><h2>Sign in to your account</h2><p class="muted mb-4">Enter your staff credentials to continue.</p>
+      <form method="post" class="needs-validation" novalidate>
+        <label class="form-label" for="username">Username</label>
+        <div class="input-icon mb-3"><i class="bi bi-person"></i><input class="form-control" id="username" name="username" required autocomplete="username" placeholder="Enter your username"></div>
+        <label class="form-label" for="password">Password</label>
+        <div class="input-icon mb-4"><i class="bi bi-lock"></i><input class="form-control" id="password" name="password" type="password" required autocomplete="current-password" placeholder="Enter your password"></div>
+        <button class="btn btn-primary w-100 btn-lg" type="submit">Sign in <i class="bi bi-arrow-right ms-2"></i></button>
+      </form>
+      <div class="login-note"><i class="bi bi-info-circle me-2"></i>Accounts are created by the administrator.</div>
+    </div>
+    <div class="auth-copyright">© {{ 2026 }} LaundryCare · Laundry management made simple</div>
+  </div>
+</div>
+{% endblock %}
